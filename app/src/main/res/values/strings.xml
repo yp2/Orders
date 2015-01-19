@@ -2,7 +2,10 @@
 <resources>
 
     <string name="app_name">Orders</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="listButton">Lista zamówień</string>
+    <string name="addButton">Dodaj zamówienie</string>
+    <string name="settingButton">Ustawienia</string>
+    <string name="appTitle">Zamówienia</string>
 
 </resources>
