@@ -16,6 +16,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".AddClient"
+            android:label="@string/title_activity_add_client" >
+        </activity>
+        <activity
+            android:name=".ListClient"
+            android:label="@string/title_activity_list_client" >
+        </activity>
     </application>
 
 </manifest>

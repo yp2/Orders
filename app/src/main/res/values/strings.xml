@@ -7,5 +7,15 @@
     <string name="addButton">Dodaj zamówienie</string>
     <string name="settingButton">Ustawienia</string>
     <string name="appTitle">Zamówienia</string>
+    <string name="addClientButton">Dodaj klienta</string>
+    <string name="title_activity_add_client">AddClient</string>
+    <string name="addClientLbl">Dodaj klienta</string>
+    <string name="addClientNameLbl">Nazwa Klienta</string>
+    <string name="addClientAddressLbl">Adres Klienta</string>
+    <string name="addClientAddBtn">Zapisz</string>
+    <string name="addClientCancelBtn">Anuluj</string>
+    <string name="title_activity_list_client">ListClient</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="clientListLbl">Lista Klientów</string>
 
 </resources>

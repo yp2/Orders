@@ -27,7 +27,8 @@
             android:layout_height="wrap_content"
             android:text="@string/listButton"
             android:id="@+id/listButton"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:onClick=""/>
 
         <Button
             android:layout_width="wrap_content"
@@ -35,6 +36,14 @@
             android:text="@string/addButton"
             android:id="@+id/addButton"
             android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/addClientButton"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/addClientButton"
+            android:onClick="addClient"/>
 
         <Button
             android:layout_width="wrap_content"

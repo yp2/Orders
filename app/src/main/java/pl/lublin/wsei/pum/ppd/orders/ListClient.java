@@ -1,57 +1,25 @@
 package pl.lublin.wsei.pum.ppd.orders;
 
-import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 
-public class MainActivity extends ActionBarActivity {
-
-    DBAdapter myDB;
+public class ListClient extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        
-        openDB();
+        setContentView(R.layout.activity_list_client);
     }
 
-    private void openDB() {
-        myDB = new DBAdapter(this);
-        myDB.open();
-    }
-
-    private void closeDB() {
-        myDB.close();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        closeDB();
-
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_list_client, menu);
         return true;
-    }
-
-//    public void listView(View view){
-//        Intent intent = new Intent(this, ListOrders.class);
-//        startActivity(intent);
-//    }
-
-    public void addClient(View view){
-        Intent intent = new Intent(this, AddClient.class);
-        startActivity(intent);
     }
 
     @Override
