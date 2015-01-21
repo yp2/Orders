@@ -22,5 +22,8 @@
     <string name="clientDetailSaveBtn">Zapisz</string>
     <string name="clientDetailDeleteBtn">Usuń klienta</string>
     <string name="addClientListBtn">Lista klientów</string>
+    <string name="mainScreenMenu">Menu</string>
+    <string name="addClientMenu">Dodaj klienta</string>
+    <string name="clientListMenu">Lista</string>
 
 </resources>

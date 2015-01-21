@@ -114,8 +114,16 @@ public class ClientDetail extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+        if (id == R.id.clientListMenu){
+            Intent intent = new Intent(this, ListClient.class);
+            startActivity(intent);
+        }
+        if (id == R.id.mainScreenMenu){
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);

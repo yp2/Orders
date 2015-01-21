@@ -70,14 +70,14 @@ public class ListClient extends ActionBarActivity {
 
     private void registerClientListViewClick(){
         ListView clientList = (ListView) findViewById(R.id.clientListView);
-        clientList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        clientList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(ListClient.this, ClientDetail.class);
                 intent.putExtra(IDDB, id);
                 startActivity(intent);
             }
-        } );
+        });
     }
 
     @Override
@@ -95,12 +95,16 @@ public class ListClient extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
         if (id == R.id.addClientMenu){
             addClient();
             return true;
+        }
+        if (id == R.id.mainScreenMenu){
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
