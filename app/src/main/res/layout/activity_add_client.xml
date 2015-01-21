@@ -6,15 +6,6 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="pl.lublin.wsei.pum.ppd.orders.AddClient">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/addClientLbl"
-        android:id="@+id/textView2"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,7 +23,6 @@
         android:layout_height="wrap_content"
         android:text="@string/addClientNameLbl"
         android:id="@+id/textView3"
-        android:layout_below="@+id/textView2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -62,17 +52,28 @@
         android:layout_height="wrap_content"
         android:text="@string/addClientAddBtn"
         android:id="@+id/addClientAddBtn"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="saveClient"/>
+        android:onClick="saveClient"
+        android:layout_below="@+id/clientAddress"
+        android:layout_toLeftOf="@+id/addClientCancelBtn"
+        android:layout_toStartOf="@+id/addClientCancelBtn" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/addClientCancelBtn"
         android:id="@+id/addClientCancelBtn"
-        android:layout_alignTop="@+id/addClientAddBtn"
+        android:onClick="cancel"
+        android:layout_below="@+id/clientAddress"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:onClick="cancel"/>
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/addClientListBtn"
+        android:id="@+id/addClientListBtn"
+        android:layout_below="@+id/clientAddress"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:onClick="clientList"/>
 </RelativeLayout>

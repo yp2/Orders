@@ -144,10 +144,10 @@ public class DBAdapter {
     }
 
     // Delete a row from the database, by rowId (primary key)
-//    public boolean deleteRow(long rowId) {
-//        String where = KEY_ROWID + "=" + rowId;
-//        return db.delete(DATABASE_TABLE, where, null) != 0;
-//    }
+    public boolean deleteClient(long rowId) {
+        String where = KEY_ROWID + "=" + rowId;
+        return db.delete(CLIENT_TABLE, where, null) != 0;
+    }
 
 //    public void deleteAll() {
 //        Cursor c = getAllRows();
@@ -163,7 +163,7 @@ public class DBAdapter {
     // Return all data in the database.
     public Cursor getAllClients() {
         String where = null;
-        Cursor c = 	db.query(true, CLIENT_TABLE, C_ALL_KEYS,
+        Cursor c = 	db.query(false, CLIENT_TABLE, C_ALL_KEYS,
                 where, null, null, null, null, null);
         if (c != null) {
             c.moveToFirst();
@@ -172,34 +172,33 @@ public class DBAdapter {
     }
 
     // Get a specific row (by rowId)
-//    public Cursor getRow(long rowId) {
-//        String where = KEY_ROWID + "=" + rowId;
-//        Cursor c = 	db.query(true, DATABASE_TABLE, ALL_KEYS,
-//                where, null, null, null, null, null);
-//        if (c != null) {
-//            c.moveToFirst();
-//        }
-//        return c;
-//    }
+    public Cursor getClient(long rowId) {
+        String where = KEY_ROWID + "=" + rowId;
+        Cursor c = 	db.query(false, CLIENT_TABLE, C_ALL_KEYS,
+                where, null, null, null, null, null);
+        if (c != null) {
+            c.moveToFirst();
+        }
+        return c;
+    }
 
     // Change an existing row to be equal to new data.
-//    public boolean updateRow(long rowId, String name, int studentNum, String favColour) {
-//        String where = KEY_ROWID + "=" + rowId;
-//
-//		/*
-//		 * CHANGE 4:
-//		 */
-//        // TODO: Update data in the row with new fields.
-//        // TODO: Also change the function's arguments to be what you need!
-//        // Create row's data:
-//        ContentValues newValues = new ContentValues();
-//        newValues.put(KEY_NAME, name);
-//        newValues.put(KEY_STUDENTNUM, studentNum);
-//        newValues.put(KEY_FAVCOLOUR, favColour);
-//
-//        // Insert it into the database.
-//        return db.update(DATABASE_TABLE, newValues, where, null) != 0;
-//    }
+    public boolean updateClient(long rowId, String name, String address) {
+        String where = KEY_ROWID + "=" + rowId;
+
+		/*
+		 * CHANGE 4:
+		 */
+        // TODO: Update data in the row with new fields.
+        // TODO: Also change the function's arguments to be what you need!
+        // Create row's data:
+        ContentValues newValues = new ContentValues();
+        newValues.put(C_KEY_NAME, name);
+        newValues.put(C_KEY_ADDRESS, address);
+
+        // Insert it into the database.
+        return db.update(CLIENT_TABLE, newValues, where, null) != 0;
+    }
 
 
 

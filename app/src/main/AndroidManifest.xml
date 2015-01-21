@@ -24,6 +24,10 @@
             android:name=".ListClient"
             android:label="@string/title_activity_list_client" >
         </activity>
+        <activity
+            android:name=".ClientDetail"
+            android:label="@string/title_activity_client_detail" >
+        </activity>
     </application>
 
 </manifest>

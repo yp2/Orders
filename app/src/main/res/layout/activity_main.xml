@@ -5,22 +5,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/appTitle"
-        android:id="@+id/textView"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true">
-
         <Button
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
@@ -28,14 +12,17 @@
             android:text="@string/listButton"
             android:id="@+id/listButton"
             android:layout_gravity="center_horizontal"
-            android:onClick=""/>
+            android:layout_below="@+id/addButton"
+            android:layout_centerHorizontal="true" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/addButton"
             android:id="@+id/addButton"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
 
         <Button
             android:layout_width="wrap_content"
@@ -43,15 +30,26 @@
             android:id="@+id/addClientButton"
             android:layout_gravity="center_horizontal"
             android:text="@string/addClientButton"
-            android:onClick="addClient"/>
+            android:onClick="addClient"
+            android:layout_below="@+id/listButton"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/clientListButton"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/clientListButton"
+            android:onClick="listClient"
+            android:layout_below="@+id/addClientButton"
+            android:layout_centerHorizontal="true" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/settingButton"
             android:id="@+id/settingButton"
-            android:layout_gravity="center_horizontal" />
-
-    </LinearLayout>
-
+            android:layout_gravity="center_horizontal"
+            android:layout_below="@+id/clientListButton"
+            android:layout_centerHorizontal="true" />
 </RelativeLayout>

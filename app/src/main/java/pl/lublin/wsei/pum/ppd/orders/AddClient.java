@@ -1,5 +1,6 @@
 package pl.lublin.wsei.pum.ppd.orders;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -24,22 +25,30 @@ public class AddClient extends ActionBarActivity {
     }
 
     public void saveClient(View view){
+        // TODO: obsługa pustych pól w formie bo się zapisują
         nameEdit = (EditText) findViewById(R.id.clientName);
         addressEdit = (EditText) findViewById(R.id.clientAddress);
         String client_name = nameEdit.getText().toString();
         String client_address = addressEdit.getText().toString();
-        long idDB = myDB.insertClient(client_name, client_address);
-        System.out.println(idDB);
 
-        String msg = "" + client_name + " ; " + client_address + " ; " + idDB;
-
-        System.out.println(msg);
-        Toast.makeText(AddClient.this, msg, Toast.LENGTH_LONG).show();
+        if (client_name.equals("")){
+            Toast.makeText(this, "Nazwa klienta nie może być pusta", Toast.LENGTH_SHORT).show();
+        } else {
+            myDB.insertClient(client_name, client_address);
+            Toast.makeText(this, "Klient " + client_name + " został zapisany", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, ListClient.class);
+            startActivity(intent);
+        }
     }
 
     public void cancel(View view){
-        finish();
+        super.onBackPressed();
         closeDB();
+    }
+
+    public void clientList(View view){
+        Intent intent = new Intent(this, ListClient.class);
+        startActivity(intent);
     }
 
     @Override

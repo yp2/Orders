@@ -1,19 +1,84 @@
 package pl.lublin.wsei.pum.ppd.orders;
 
+import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 
 
 public class ListClient extends ActionBarActivity {
+    public final static String IDDB = "pl.lubln.wsei.pum.ppd.orders.IDDB";
+    private DBAdapter myDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_client);
+        openDB();
+
+        populateClientList();
+        registerClientListViewClick();
     }
 
+    private void openDB(){
+        myDB = new DBAdapter(this);
+        myDB.open();
+    }
+
+    private void closeDB(){
+        myDB.close();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        closeDB();
+    }
+
+    public void addClient(){
+        Intent intent = new Intent(this, AddClient.class);
+        startActivity(intent);
+    }
+
+    private void populateClientList(){
+        Cursor cursor = myDB.getAllClients();
+
+        // zamykanie kursora
+        startManagingCursor(cursor);
+
+        // mapowanie dla elementu listy
+        String [] clientFiledNames = new String[] { DBAdapter.C_KEY_NAME, DBAdapter.C_KEY_ADDRESS};
+        int [] toViewID = new int [] {R.id.clientNameLy, R.id.clientAddressLy};
+
+        SimpleCursorAdapter clientCurosrAdapter = new SimpleCursorAdapter(
+                this,           //context
+                R.layout.client_layout,     //Row layout
+                cursor,                     //curosr
+                clientFiledNames,           //mapowanie
+                toViewID                    //mapowanie
+        );
+
+        ListView clientList = (ListView) findViewById(R.id.clientListView);
+        clientList.setAdapter(clientCurosrAdapter);
+    }
+
+    private void registerClientListViewClick(){
+        ListView clientList = (ListView) findViewById(R.id.clientListView);
+        clientList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(ListClient.this, ClientDetail.class);
+                intent.putExtra(IDDB, id);
+                startActivity(intent);
+            }
+        } );
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -33,7 +98,10 @@ public class ListClient extends ActionBarActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-
+        if (id == R.id.addClientMenu){
+            addClient();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 }
