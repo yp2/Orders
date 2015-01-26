@@ -25,5 +25,7 @@
     <string name="mainScreenMenu">Menu</string>
     <string name="addClientMenu">Dodaj klienta</string>
     <string name="clientListMenu">Lista</string>
+    <string name="addOrderNameLbl">Nazwa zamówienia</string>
+    <string name="title_activity_add_order">Dodaj Zamówienie</string>
 
 </resources>

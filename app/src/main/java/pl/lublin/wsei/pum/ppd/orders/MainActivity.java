@@ -1,8 +1,8 @@
 package pl.lublin.wsei.pum.ppd.orders;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -53,6 +53,12 @@ public class MainActivity extends ActionBarActivity {
         Intent intent = new Intent(this, AddClient.class);
         startActivity(intent);
     }
+
+    public void addOrder(View view){
+        Intent intent = new Intent(this, AddOrder.class);
+        startActivity(intent);
+    }
+
 
     public void listClient(View view){
         Intent intent = new Intent(this, ListClient.class);

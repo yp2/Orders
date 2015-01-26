@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:text="@string/addButton"
             android:id="@+id/addButton"
+            android:onClick="AddOrder"
             android:layout_gravity="center_horizontal"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
@@ -49,6 +50,6 @@
             android:text="@string/settingButton"
             android:id="@+id/settingButton"
             android:layout_gravity="center_horizontal"
-            android:layout_below="@+id/clientListButton"
+            android:layout_centerVertical="true"
             android:layout_centerHorizontal="true" />
 </RelativeLayout>

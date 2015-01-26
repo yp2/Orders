@@ -28,6 +28,11 @@
             android:name=".ClientDetail"
             android:label="@string/title_activity_client_detail" >
         </activity>
+        <activity
+            android:name=".AddOrder"
+            android:label="@string/title_activity_add_order" >
+        </activity>
+
     </application>
 
 </manifest>
