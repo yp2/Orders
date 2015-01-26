@@ -4,7 +4,7 @@ package pl.lublin.wsei.pum.ppd.orders;
  */
 
 /*
-lubudubu
+lubudubu niech zyjenam prezes klubu
  */
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
