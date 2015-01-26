@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:text="@string/addButton"
             android:id="@+id/addButton"
-            android:onClick="AddOrder"
+            android:onClick="addOrder"
             android:layout_gravity="center_horizontal"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
