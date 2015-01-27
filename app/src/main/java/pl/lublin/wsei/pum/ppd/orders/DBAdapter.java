@@ -32,6 +32,9 @@ public class DBAdapter {
     // Client table
     public static final String C_KEY_NAME = "name";
     public static final String C_KEY_ADDRESS = "address";
+    public static final String C_KEY_CREATED = "created"; // utworzony - to ma prawo zmienić tylko synchronizacja
+    public static final String C_KEY_MODIFIED = "modified"; // zmodyfikowany - to zmienia się z 1 za każdym razem gdy modyfikujemy
+                                                            // synchronizacja zmienia to na 0 i tylko synchroniazacja
 
     // Order table
     public static final String O_KEY_CLIENT = "client";
@@ -47,6 +50,9 @@ public class DBAdapter {
     // Client table (0 = KEY_ROWID, 1=...)
     public static final int C_COL_NAME = 1;
     public static final int C_COL_ADDRESS = 2;
+    public static final int C_COL_CREATED = 3;
+    public static final int C_COL_MODIFIED = 4;
+
 
     // Order table
     public static final int O_COL_CLIENT = 1;
@@ -57,7 +63,7 @@ public class DBAdapter {
 
 
     public static final String[] S_ALL_KEYS = new String[] {KEY_ROWID, S_KEY_USERNAME, S_KEY_HOST};
-    public static final String[] C_ALL_KEYS = new String[] {KEY_ROWID, C_KEY_NAME, C_KEY_ADDRESS};
+    public static final String[] C_ALL_KEYS = new String[] {KEY_ROWID, C_KEY_NAME, C_KEY_ADDRESS, C_KEY_CREATED, C_KEY_MODIFIED};
     public static final String[] O_ALL_KEYS = new String[] {
             KEY_ROWID, O_KEY_CLIENT, O_KEY_USER, O_KEY_ORDER_DATE, O_KEY_DELIVERY_DATE, O_KEY_CONTENT};
 
@@ -68,7 +74,7 @@ public class DBAdapter {
     public static final String CLIENT_TABLE = "clietTable";
     public static final String ORDERS_TABLE = "orderTable";
     // Track DB version if a new version of your app changes the format.
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 3;
 
     private static final String DB_CREATE_CLIENT_SQL =
             "create table " + CLIENT_TABLE
@@ -86,7 +92,9 @@ public class DBAdapter {
                     // NOTE: All must be comma separated (end of line!) Last one must have NO comma!!
 
             + C_KEY_NAME + " text not null, "
-            + C_KEY_ADDRESS + " text" + ");";
+            + C_KEY_ADDRESS + " text, "
+            + C_KEY_CREATED + " integer, "
+            + C_KEY_MODIFIED + " integer" + ");";
 
     private static final String  DB_CREATE_ORDER_SQL =
             "create table " + ORDERS_TABLE
@@ -141,6 +149,8 @@ public class DBAdapter {
         ContentValues initialValues = new ContentValues();
         initialValues.put(C_KEY_NAME, name);
         initialValues.put(C_KEY_ADDRESS, address);
+        initialValues.put(C_KEY_CREATED, 1); // utworzony - to ma prawo zmienić tylko synchronizacja
+        initialValues.put(C_KEY_MODIFIED, 0); // niezmodyfikowany
 
         // Insert it into the database.
         return db.insert(CLIENT_TABLE, null, initialValues);
@@ -241,6 +251,7 @@ public class DBAdapter {
         ContentValues newValues = new ContentValues();
         newValues.put(C_KEY_NAME, name);
         newValues.put(C_KEY_ADDRESS, address);
+        newValues.put(C_KEY_MODIFIED, 1);
 
         // Insert it into the database.
         return db.update(CLIENT_TABLE, newValues, where, null) != 0;
