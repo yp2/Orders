@@ -25,6 +25,10 @@ public class DBAdapter {
     /*
      * CHANGE 1:
      */
+    // Settings table
+    public static final String S_KEY_USERNAME = "username";
+    public static final String S_KEY_HOST = "host";
+
     // Client table
     public static final String C_KEY_NAME = "name";
     public static final String C_KEY_ADDRESS = "address";
@@ -35,6 +39,10 @@ public class DBAdapter {
     public static final String O_KEY_ORDER_DATE = "order_date";
     public static final String O_KEY_DELIVERY_DATE = "delivery_date";
     public static final String O_KEY_CONTENT = "content";
+
+    // Settings table (0 - KEY_ROWID 1=...)
+    public static final int S_COL_USERNAME = 1;
+    public static final int S_COL_HOST = 2;
 
     // Client table (0 = KEY_ROWID, 1=...)
     public static final int C_COL_NAME = 1;
@@ -48,17 +56,19 @@ public class DBAdapter {
     public static final int O_COL_CONTENT = 5;
 
 
-
+    public static final String[] S_ALL_KEYS = new String[] {KEY_ROWID, S_KEY_USERNAME, S_KEY_HOST};
     public static final String[] C_ALL_KEYS = new String[] {KEY_ROWID, C_KEY_NAME, C_KEY_ADDRESS};
     public static final String[] O_ALL_KEYS = new String[] {
             KEY_ROWID, O_KEY_CLIENT, O_KEY_USER, O_KEY_ORDER_DATE, O_KEY_DELIVERY_DATE, O_KEY_CONTENT};
 
+
     // DB info: it's name, and the table we are using (just one).
     public static final String DATABASE_NAME = "OrdersDB";
+    public static final String SETTINGS_TABLE = "settingsTable";
     public static final String CLIENT_TABLE = "clietTable";
     public static final String ORDERS_TABLE = "orderTable";
     // Track DB version if a new version of your app changes the format.
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
 
     private static final String DB_CREATE_CLIENT_SQL =
             "create table " + CLIENT_TABLE
@@ -86,6 +96,12 @@ public class DBAdapter {
                     + O_KEY_ORDER_DATE + " text, "
                     + O_KEY_DELIVERY_DATE + " text, "
                     + O_KEY_CONTENT + " text not null" + ");";
+
+    private static final String DB_CREATE_SETTINGS_SQL =
+            "create table " + SETTINGS_TABLE
+                + " (" + KEY_ROWID + " integer primary key autoincrement, "
+                + S_KEY_USERNAME + " text not null, "
+                + S_KEY_HOST + " text " + ");";
 
     // Context of application who uses us.
     private final Context context;
@@ -182,6 +198,36 @@ public class DBAdapter {
         return c;
     }
 
+    public Cursor getSettings(){
+        String where = KEY_ROWID + "=1";
+        Cursor c = 	db.query(false, SETTINGS_TABLE, S_ALL_KEYS,
+                where, null, null, null, null, null);
+        if (c != null) {
+            c.moveToFirst();
+        }
+        return c;
+    }
+
+    public boolean updateSettings(String username, String host){
+        Cursor cursor = getSettings();
+
+        String where = KEY_ROWID + "=1";
+        ContentValues newValues = new ContentValues();
+        newValues.put(S_KEY_USERNAME, username);
+        newValues.put(S_KEY_HOST, host);
+
+        if (cursor.moveToFirst()){
+            cursor.close();
+            return db.update(SETTINGS_TABLE, newValues, where, null) != 0;
+        } else {
+            cursor.close();
+            newValues.put(KEY_ROWID, 1);
+            long id = db.insert(SETTINGS_TABLE, null, newValues);
+            return id != 0;
+        }
+
+    }
+
     // Change an existing row to be equal to new data.
     public boolean updateClient(long rowId, String name, String address) {
         String where = KEY_ROWID + "=" + rowId;
@@ -220,6 +266,7 @@ public class DBAdapter {
         public void onCreate(SQLiteDatabase _db) {
             _db.execSQL(DB_CREATE_CLIENT_SQL);
             _db.execSQL(DB_CREATE_ORDER_SQL);
+            _db.execSQL(DB_CREATE_SETTINGS_SQL);
         }
 
         @Override
@@ -230,6 +277,7 @@ public class DBAdapter {
             // Destroy old database:
             _db.execSQL("DROP TABLE IF EXISTS " + ORDERS_TABLE);
             _db.execSQL("DROP TABLE IF EXISTS " + CLIENT_TABLE);
+            _db.execSQL("DROP TABLE IF EXISTS " + SETTINGS_TABLE);
 
             // Recreate new database:
             onCreate(_db);

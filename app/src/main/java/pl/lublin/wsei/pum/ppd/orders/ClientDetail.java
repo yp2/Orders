@@ -24,7 +24,6 @@ public class ClientDetail extends ActionBarActivity {
         IDDB = intent.getLongExtra(ListClient.IDDB, -1);
         openDB();
         populateClientDetail();
-        System.out.println(IDDB);
 
     }
 
@@ -85,6 +84,8 @@ public class ClientDetail extends ActionBarActivity {
                 } else {
                     Toast.makeText(this, "Dane nie zostały zapisane - bład bazy", Toast.LENGTH_SHORT).show();
                 }
+            } else {
+                Toast.makeText(this, "Nazwa klienta nie może być pusta", Toast.LENGTH_SHORT).show();
             }
         } else {
             Toast.makeText(this, "Błędne id", Toast.LENGTH_SHORT).show();
