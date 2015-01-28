@@ -38,7 +38,7 @@ public class DBAdapter {
 
     // Order table
     public static final String O_KEY_CLIENT = "client";
-    public static final String O_KEY_USER = "user";
+//    public static final String O_KEY_USER = "user";
     public static final String O_KEY_ORDER_DATE = "order_date";
     public static final String O_KEY_DELIVERY_DATE = "delivery_date";
     public static final String O_KEY_CONTENT = "content";
@@ -56,16 +56,16 @@ public class DBAdapter {
 
     // Order table
     public static final int O_COL_CLIENT = 1;
-    public static final int O_COL_USER = 2;
-    public static final int O_COL_ORDER_DATE = 3;
-    public static final int O_COL_DELIVERY_DATE = 4;
-    public static final int O_COL_CONTENT = 5;
+//    public static final int O_COL_USER = 2;
+    public static final int O_COL_ORDER_DATE = 2;
+    public static final int O_COL_DELIVERY_DATE = 3;
+    public static final int O_COL_CONTENT = 4;
 
 
     public static final String[] S_ALL_KEYS = new String[] {KEY_ROWID, S_KEY_USERNAME, S_KEY_HOST};
     public static final String[] C_ALL_KEYS = new String[] {KEY_ROWID, C_KEY_NAME, C_KEY_ADDRESS, C_KEY_CREATED, C_KEY_MODIFIED};
     public static final String[] O_ALL_KEYS = new String[] {
-            KEY_ROWID, O_KEY_CLIENT, O_KEY_USER, O_KEY_ORDER_DATE, O_KEY_DELIVERY_DATE, O_KEY_CONTENT};
+            KEY_ROWID, O_KEY_CLIENT, O_KEY_ORDER_DATE, O_KEY_DELIVERY_DATE, O_KEY_CONTENT};
 
 
     // DB info: it's name, and the table we are using (just one).
@@ -74,7 +74,7 @@ public class DBAdapter {
     public static final String CLIENT_TABLE = "clietTable";
     public static final String ORDERS_TABLE = "orderTable";
     // Track DB version if a new version of your app changes the format.
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = 4;
 
     private static final String DB_CREATE_CLIENT_SQL =
             "create table " + CLIENT_TABLE
@@ -100,7 +100,6 @@ public class DBAdapter {
             "create table " + ORDERS_TABLE
                     + " (" + KEY_ROWID + " integer primary key autoincrement, "
                     + O_KEY_CLIENT + " int, "
-                    + O_KEY_USER + " text, "
                     + O_KEY_ORDER_DATE + " text, "
                     + O_KEY_DELIVERY_DATE + " text, "
                     + O_KEY_CONTENT + " text not null" + ");";
@@ -156,12 +155,12 @@ public class DBAdapter {
         return db.insert(CLIENT_TABLE, null, initialValues);
     }
 
-    public long insertOrder(int client, String user, String order_date,
+    public long insertOrder(int client, String order_date,
                             String delivery_date, String content ){
 
         ContentValues values = new ContentValues();
         values.put(O_KEY_CLIENT, client);
-        values.put(O_KEY_USER, user);
+//        values.put(O_KEY_USER, user);
         values.put(O_KEY_ORDER_DATE, order_date);
         values.put(O_KEY_DELIVERY_DATE, delivery_date);
         values.put(O_KEY_CONTENT, content);
