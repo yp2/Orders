@@ -51,7 +51,7 @@ public class AddOrderDetail extends ActionBarActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_client_detail, menu);
+        getMenuInflater().inflate(R.menu.menu_add_order_detail, menu);
         return true;
     }
 
@@ -120,7 +120,7 @@ public class AddOrderDetail extends ActionBarActivity {
 //            return true;
 //        }
         if (id == R.id.clientListMenu){
-            Intent intent = new Intent(this, ListClient.class);
+            Intent intent = new Intent(this, AddOrder.class);
             startActivity(intent);
         }
         if (id == R.id.mainScreenMenu){
