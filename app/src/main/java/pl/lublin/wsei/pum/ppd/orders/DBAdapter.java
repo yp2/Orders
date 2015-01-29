@@ -19,6 +19,18 @@ public class DBAdapter {
     // For logging:
     private static final String TAG = "DBAdapter";
 
+
+    // stałe
+    private static final int OBJ_CREATED = 1;
+    private static final int OBJ_MODIFIED = 1;
+    private static final int OBJ_NOT_CREATED = 0;
+    private static final int OBJ_NOT_MODIFIED = 0;
+
+    // sync type
+    public static final int SYNC_CREATE = 1;
+    public static final int SYNC_MODIFIED = 2;
+
+
     // DB Fields
     public static final String KEY_ROWID = "_id";
     public static final int COL_ROWID = 0;
@@ -148,8 +160,8 @@ public class DBAdapter {
         ContentValues initialValues = new ContentValues();
         initialValues.put(C_KEY_NAME, name);
         initialValues.put(C_KEY_ADDRESS, address);
-        initialValues.put(C_KEY_CREATED, 1); // utworzony - to ma prawo zmienić tylko synchronizacja
-        initialValues.put(C_KEY_MODIFIED, 0); // niezmodyfikowany
+        initialValues.put(C_KEY_CREATED, OBJ_CREATED); // utworzony - to ma prawo zmienić tylko synchronizacja
+        initialValues.put(C_KEY_MODIFIED, OBJ_NOT_MODIFIED); // niezmodyfikowany
 
         // Insert it into the database.
         return db.insert(CLIENT_TABLE, null, initialValues);
@@ -196,6 +208,39 @@ public class DBAdapter {
         return c;
     }
 
+    public Cursor getAllCreatedClients(){
+        String where = C_KEY_CREATED + "=" + OBJ_CREATED;
+        Cursor c = 	db.query(false, CLIENT_TABLE, C_ALL_KEYS,
+                where, null, null, null, null, null);
+        if (c != null) {
+            c.moveToFirst();
+        }
+        return c;
+    }
+
+    public boolean setClientSync(long rowId, int syncType){
+        String where = KEY_ROWID + "=" + rowId;
+
+        ContentValues newValues = new ContentValues();
+        if (syncType == SYNC_CREATE){
+            newValues.put(C_KEY_CREATED, OBJ_NOT_CREATED);
+        } else if ( syncType == SYNC_MODIFIED) {
+            newValues.put(C_KEY_MODIFIED, OBJ_NOT_MODIFIED);
+        }
+        // Insert it into the database.
+        return db.update(CLIENT_TABLE, newValues, where, null) != 0;
+    }
+
+    public Cursor getAllModifiedClients(){
+        String where = C_KEY_MODIFIED + "=" + OBJ_MODIFIED;
+        Cursor c = 	db.query(false, CLIENT_TABLE, C_ALL_KEYS,
+                where, null, null, null, null, null);
+        if (c != null) {
+            c.moveToFirst();
+        }
+        return c;
+    }
+
     // Get a specific row (by rowId)
     public Cursor getClient(long rowId) {
         String where = KEY_ROWID + "=" + rowId;
@@ -215,6 +260,26 @@ public class DBAdapter {
             c.moveToFirst();
         }
         return c;
+    }
+
+    public String getSettingsUsername(){
+        String username = "";
+        Cursor cursor = this.getSettings();
+        if (cursor.moveToFirst()){
+            username = cursor.getString(DBAdapter.S_COL_USERNAME);
+        }
+        cursor.close();
+        return username;
+    }
+
+    public String getSettingsHost(){
+        String host = "";
+        Cursor cursor = this.getSettings();
+        if (cursor.moveToFirst()){
+            host = cursor.getString(DBAdapter.S_COL_HOST);
+        }
+        cursor.close();
+        return host;
     }
 
     public boolean updateSettings(String username, String host){

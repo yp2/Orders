@@ -1,5 +1,6 @@
 package pl.lublin.wsei.pum.ppd.orders;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -81,6 +82,11 @@ public class SettingsActivity extends ActionBarActivity {
         return true;
     }
 
+    public void sync(View view){
+        Intent intent = new Intent(this, SyncActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -92,7 +98,10 @@ public class SettingsActivity extends ActionBarActivity {
 //        if (id == R.id.action_settings) {
 //            return true;
 //        }
-
+        if (id == R.id.mainScreenMenu){
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
         return super.onOptionsItemSelected(item);
     }
 }

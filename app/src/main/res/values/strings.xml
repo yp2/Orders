@@ -31,5 +31,9 @@
     <string name="title_activity_settings">Ustawienia</string>
     <string name="sUserName">Nazwa użytkownika</string>
     <string name="settingsHost">Host</string>
+    <string name="title_activity_sync">Synchronizuj</string>
+    <string name="settingsSyncBtn">Synchronizuj</string>
+    <string name="syncClient">Klienci</string>
+    <string name="syncClinetsBtn">Klienci</string>
 
 </resources>
