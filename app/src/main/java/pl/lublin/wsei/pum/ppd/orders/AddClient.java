@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 
 public class AddClient extends ActionBarActivity {
+    private boolean FROM_ORDER;
 
     DBAdapter myDB;
     EditText nameEdit;
@@ -20,6 +21,8 @@ public class AddClient extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_client);
+        Intent intent = getIntent();
+        FROM_ORDER = intent.getBooleanExtra(AddOrder.FROM_ORDER, false);
 
         openDB();
     }
@@ -36,8 +39,13 @@ public class AddClient extends ActionBarActivity {
         } else {
             myDB.insertClient(client_name, client_address);
             Toast.makeText(this, "Klient " + client_name + " został zapisany", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, ListClient.class);
-            startActivity(intent);
+            if (FROM_ORDER){
+                Intent intent = new Intent(this, AddOrder.class);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(this, ListClient.class);
+                startActivity(intent);
+            }
         }
     }
 

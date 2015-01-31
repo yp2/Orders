@@ -14,6 +14,7 @@ import android.widget.SimpleCursorAdapter;
 
 public class AddOrder extends ActionBarActivity {
     public final static String IDDB = "pl.lubln.wsei.pum.ppd.orders.IDDB";
+    public final static String FROM_ORDER = "pl.lublin.wsei.pum.ppd.orders.FROM_ORDER";
     private DBAdapter myDB;
 
     @Override
@@ -43,6 +44,7 @@ public class AddOrder extends ActionBarActivity {
 
     public void addClient(){
         Intent intent = new Intent(this, AddClient.class);
+        intent.putExtra(FROM_ORDER, true);
         startActivity(intent);
     }
 
