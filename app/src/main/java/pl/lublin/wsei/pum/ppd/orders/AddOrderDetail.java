@@ -2,14 +2,12 @@ package pl.lublin.wsei.pum.ppd.orders;
 
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -24,7 +22,9 @@ public class AddOrderDetail extends ActionBarActivity {
         Intent intent = getIntent();
         IDDB = intent.getLongExtra(ListClient.IDDB, -1);
         openDB();
-        populateClientDetail();
+        Toast.makeText(this, "" + IDDB, Toast.LENGTH_SHORT).show();
+
+//        populateClientDetail();
 
     }
 
@@ -55,21 +55,16 @@ public class AddOrderDetail extends ActionBarActivity {
         return true;
     }
 
-    private void populateClientDetail() {
-        Cursor cursor = myDB.getClient(IDDB);
-        if (cursor.moveToFirst()) {
-            TextView name = (TextView) findViewById(R.id.addOrderContent);
-            //EditText address = (EditText) findViewById(R.id.clientDetailAddress);
-            String client_name = cursor.getString(DBAdapter.C_COL_NAME);
-            //String client_address = cursor.getString(DBAdapter.C_COL_ADDRESS);
-            name.setText(client_name, TextView.BufferType.EDITABLE);
-            //address.setText(client_address, TextView.BufferType.EDITABLE);
-        } else {
-            Toast.makeText(this, "Błędne id", Toast.LENGTH_SHORT).show();
-        }
-        // zamykamy kursor
-        cursor.close();
+    public void addnewOrder (View view){
+        EditText content = (EditText) findViewById(R.id.content);
+        String scontent = content.getText().toString();
+        myDB.insertOrder(IDDB, scontent);
+        Intent intent = new Intent(this, ListOrders.class);
+        startActivity(intent);
     }
+
+
+    /*
 
     public void updateClient(View view) {
         EditText name = (EditText) findViewById(R.id.clientDetailName);
@@ -107,6 +102,7 @@ public class AddOrderDetail extends ActionBarActivity {
             Toast.makeText(this, "Błędne id", Toast.LENGTH_SHORT).show();
         }
     }
+    */
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

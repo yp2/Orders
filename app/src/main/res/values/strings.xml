@@ -35,5 +35,6 @@
     <string name="settingsSyncBtn">Synchronizuj</string>
     <string name="syncClient">Klienci</string>
     <string name="syncClinetsBtn">Klienci</string>
+    <string name="title_activity_list_orders">Lista Zamowien</string>
 
 </resources>
